@@ -68,6 +68,7 @@ const Routers = function ({ history, app }) {
   return (
     <ConnectedRouter history={history}>
       <App>
+        <div>22223</div>
         {/* <Switch>
           <Route exact path="/" render={() => (<Redirect to="/dashboard" />)} />
           {

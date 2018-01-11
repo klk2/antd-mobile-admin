@@ -5,8 +5,8 @@ import NProgress from 'nprogress'
 import PropTypes from 'prop-types'
 import pathToRegexp from 'path-to-regexp'
 import { connect } from 'dva'
-// import { Loader, MyLayout } from 'components'
-import { Flex } from 'antd-mobile'
+import { MyLayout } from 'components'
+// import { Flex } from 'antd-mobile'
 import { classnames, config } from 'utils'
 import { Helmet } from 'react-helmet'
 import { withRouter } from 'dva/router'
@@ -15,7 +15,7 @@ import '../themes/index.less'
 import './app.less'
 
 // const { Content, Footer, Sider } = Layout
-// const { Header, Bread, styles } = MyLayout
+const { TabMenuBar } = MyLayout
 const { prefix, openPages } = config
 
 let lastHref
@@ -49,58 +49,43 @@ const App = ({
     isNavbar,
     menuPopoverVisible,
     navOpenKeys,
-    switchMenuPopover () {
+    switchMenuPopover() {
       dispatch({ type: 'app/switchMenuPopver' })
     },
-    logout () {
+    logout() {
       dispatch({ type: 'app/logout' })
     },
-    switchSider () {
+    switchSider() {
       dispatch({ type: 'app/switchSider' })
     },
-    changeOpenKeys (openKeys) {
+    changeOpenKeys(openKeys) {
       dispatch({ type: 'app/handleNavOpenKeys', payload: { navOpenKeys: openKeys } })
     },
   }
-
-  const siderProps = {
-    menu,
-    location,
+  const tabbarProps = {
     siderFold,
-    darkTheme,
-    navOpenKeys,
-    changeTheme () {
-      dispatch({ type: 'app/switchTheme' })
-    },
-    changeOpenKeys (openKeys) {
-      window.localStorage.setItem(`${prefix}navOpenKeys`, JSON.stringify(openKeys))
-      dispatch({ type: 'app/handleNavOpenKeys', payload: { navOpenKeys: openKeys } })
-    },
-  }
-
-  const breadProps = {
     menu,
     location,
+    children,
   }
-
-  if (openPages && openPages.includes(pathname)) {
-    return (<div>
-      {/* <Loader fullScreen spinning={loading.effects['app/query']} /> */}
-      {children}
-    </div>)
-  }
+  // if (openPages && openPages.includes(pathname)) {
+  //   return (<div>
+  //     {/* <Loader fullScreen spinning={loading.effects['app/query']} /> */}
+  //     {children}
+  //   </div>)
+  // }
 
   return (
     <div>
       {/* <Loader fullScreen spinning={loading.effects['app/query']} /> */}
       <Helmet>
         <title>ANTD ADMIN Mobile</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
         <link rel="icon" href={logo} type="image/x-icon" />
         {iconFontJS && <script src={iconFontJS} />}
         {iconFontCSS && <link rel="stylesheet" href={iconFontCSS} />}
       </Helmet>
-      <div>122</div>
+      <TabMenuBar  {...tabbarProps} />
       {/* <Layout className={classnames({ [styles.dark]: darkTheme, [styles.light]: !darkTheme })}>
         {!isNavbar && <Sider
           trigger={null}
