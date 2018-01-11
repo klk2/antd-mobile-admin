@@ -5,7 +5,7 @@ import NProgress from 'nprogress'
 import PropTypes from 'prop-types'
 import pathToRegexp from 'path-to-regexp'
 import { connect } from 'dva'
-import { MyLayout } from 'components'
+import { MyLayout, Loader } from 'components'
 // import { Flex } from 'antd-mobile'
 import { classnames, config } from 'utils'
 import { Helmet } from 'react-helmet'
@@ -68,16 +68,16 @@ const App = ({
     location,
     children,
   }
-  // if (openPages && openPages.includes(pathname)) {
-  //   return (<div>
-  //     {/* <Loader fullScreen spinning={loading.effects['app/query']} /> */}
-  //     {children}
-  //   </div>)
-  // }
+  if (openPages && openPages.includes(pathname)) {
+    return (<div>
+      <Loader fullScreen spinning={loading.effects['app/query']} />
+      {children}
+    </div>)
+  }
 
   return (
-    <div>
-      {/* <Loader fullScreen spinning={loading.effects['app/query']} /> */}
+    <div className="container">
+      <Loader fullScreen spinning={loading.effects['app/query']} />
       <Helmet>
         <title>ANTD ADMIN Mobile</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />

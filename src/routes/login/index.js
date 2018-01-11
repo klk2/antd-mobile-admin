@@ -1,27 +1,79 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'dva'
-import { Button, Row, Form, Input } from 'antd'
+import { Button, List, InputItem } from 'antd-mobile'
 import { config } from 'utils'
 import styles from './index.less'
 
-const FormItem = Form.Item
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      namevalue: null,
+      pwdvalue: null,
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    const { dispatch } = this.props;
+    let formV = {
+      username: this.state.namevalue,
+      password: this.state.pwdvalue,
+    }
+    dispatch({ type: 'login/login', payload: formV })
+  }
+  render() {
+    const {
+      loading,
+    } = this.props;
+    return (
+      <div className={styles.form}>
+        <div className={styles.logo}>
+          <img alt="logo" src={config.logo} />
+          <span>{config.name}</span>
+        </div>
+        <List>
+          <InputItem value={this.state.namevalue}
+            onChange={e => this.setState({ namevalue: e })}
+            placeholder="Username"
+            clear
+          >Name</InputItem>
 
-const Login = ({
+          <InputItem value={this.state.pwdvalue}
+            onChange={e => this.setState({ pwdvalue: e })}
+            type="password"
+            placeholder="Password"
+            clear
+          >Password</InputItem>
+        </List>
+        <div>
+          <Button type="primary" onClick={this.handleSubmit} loading={loading.effects.login}>
+            Sign in
+          </Button>
+          <p>
+            <span>Username：guest</span>
+            <span>Password：guest</span>
+          </p>
+        </div>
+
+
+      </div>
+    )
+  }
+}
+const Logi2 = ({
   loading,
   dispatch,
-  form: {
-    getFieldDecorator,
-    validateFieldsAndScroll,
-  },
 }) => {
-  function handleOk () {
-    validateFieldsAndScroll((errors, values) => {
-      if (errors) {
-        return
-      }
-      dispatch({ type: 'login/login', payload: values })
-    })
+  let userNameInput
+  let pwdInput
+  function handleOk() {
+    let formV = {
+      username: userNameInput.value,
+      password: pwdInput.value,
+    }
+    dispatch({ type: 'login/login', payload: formV })
   }
 
   return (
@@ -30,44 +82,29 @@ const Login = ({
         <img alt="logo" src={config.logo} />
         <span>{config.name}</span>
       </div>
-      <form>
-        <FormItem hasFeedback>
-          {getFieldDecorator('username', {
-            rules: [
-              {
-                required: true,
-              },
-            ],
-          })(<Input onPressEnter={handleOk} placeholder="Username" />)}
-        </FormItem>
-        <FormItem hasFeedback>
-          {getFieldDecorator('password', {
-            rules: [
-              {
-                required: true,
-              },
-            ],
-          })(<Input type="password" onPressEnter={handleOk} placeholder="Password" />)}
-        </FormItem>
-        <Row>
-          <Button type="primary" onClick={handleOk} loading={loading.effects.login}>
-            Sign in
-          </Button>
-          <p>
-            <span>Username：guest</span>
-            <span>Password：guest</span>
-          </p>
-        </Row>
+      <List>
+        <InputItem ref={el => userNameInput = el} value="22" placeholder="Username" clear>Name</InputItem>
 
-      </form>
+        <InputItem ref={el => pwdInput = el} type="password" placeholder="Password" clear>Password</InputItem>
+      </List>
+      <div>
+        <Button type="primary" onClick={handleOk} loading={loading.effects.login}>
+          Sign in
+        </Button>
+        <p>
+          <span>Username：guest</span>
+          <span>Password：guest</span>
+        </p>
+      </div>
+
+
     </div>
   )
 }
 
 Login.propTypes = {
-  form: PropTypes.object,
   dispatch: PropTypes.func,
   loading: PropTypes.object,
 }
 
-export default connect(({ loading }) => ({ loading }))(Form.create()(Login))
+export default connect(({ loading }) => ({ loading }))(Login)

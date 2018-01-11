@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { TabBar, Icon } from 'antd-mobile'
-import { Link } from 'react-router-dom'
 import { arrayToTree, queryArray } from 'utils'
 import pathToRegexp from 'path-to-regexp'
+import { routerRedux } from 'dva/router'
 
 const TabMenuBar = ({ siderFold, menu, location, children }) => {
   // 生成树状
@@ -15,9 +15,13 @@ const TabMenuBar = ({ siderFold, menu, location, children }) => {
       return (
         <TabBar.Item key={item.id}
           title={item.name}
-          selected={item.router === selectMenu.router}
-          icon={<Icon type={item.icon} />}
-          selectedIcon={<Icon type={item.icon} />}
+          selected={item.route === selectMenu.route}
+          icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
+          selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
+          onPress={() => {
+            routerRedux.push(item.route)
+          }
+          }
         >
           {location.pathname === item.router ? children : null}
         </TabBar.Item>
