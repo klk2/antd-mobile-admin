@@ -15,7 +15,7 @@ import '../themes/index.less'
 import './app.less'
 
 // const { Content, Footer, Sider } = Layout
-const { TabMenuBar } = MyLayout
+const { BottomTabBar } = MyLayout
 const { prefix, openPages } = config
 
 let lastHref
@@ -85,7 +85,7 @@ const App = ({
         {iconFontJS && <script src={iconFontJS} />}
         {iconFontCSS && <link rel="stylesheet" href={iconFontCSS} />}
       </Helmet>
-      <TabMenuBar  {...tabbarProps} />
+      <BottomTabBar  {...tabbarProps} />
       {/* <Layout className={classnames({ [styles.dark]: darkTheme, [styles.light]: !darkTheme })}>
         {!isNavbar && <Sider
           trigger={null}

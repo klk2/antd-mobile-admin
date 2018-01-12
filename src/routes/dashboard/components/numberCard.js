@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Icon, Card } from 'antd'
+import { Icon, Card } from 'antd-mobile'
 import CountUp from 'react-countup'
 import styles from './numberCard.less'
 
-function NumberCard ({
+function NumberCard({
   icon, color, title, number, countUp,
 }) {
   return (
-    <Card className={styles.numberCard} bordered={false} bodyStyle={{ padding: 0 }}>
+    <Card className={styles.numberCard}  >
       <Icon className={styles.iconWarp} style={{ color }} type={icon} />
       <div className={styles.content}>
         <p className={styles.title}>{title || 'No Title'}</p>

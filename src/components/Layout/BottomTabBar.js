@@ -5,7 +5,7 @@ import { arrayToTree, queryArray } from 'utils'
 import pathToRegexp from 'path-to-regexp'
 import { routerRedux } from 'dva/router'
 
-const TabMenuBar = ({ siderFold, menu, location, children }) => {
+const BottomTabBar = ({ siderFold, menu, location, children }) => {
   // 生成树状
   const menuTree = arrayToTree(menu.filter(_ => _.mpid !== '-1'), 'id', 'mpid')
 
@@ -19,11 +19,11 @@ const TabMenuBar = ({ siderFold, menu, location, children }) => {
           icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
           selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
           onPress={() => {
-            routerRedux.push(item.route)
+            routerRedux.push(item.route);
           }
           }
         >
-          {location.pathname === item.router ? children : null}
+          {location.pathname === item.route ? children : null}
         </TabBar.Item>
       )
     })
@@ -55,11 +55,11 @@ const TabMenuBar = ({ siderFold, menu, location, children }) => {
   )
 }
 
-TabMenuBar.propTypes = {
+BottomTabBar.propTypes = {
   menu: PropTypes.array,
   siderFold: PropTypes.bool,
   location: PropTypes.object,
   children: PropTypes.element,
 }
 
-export default TabMenuBar
+export default BottomTabBar

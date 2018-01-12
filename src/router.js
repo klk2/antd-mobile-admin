@@ -13,10 +13,10 @@ const Routers = function ({ history, app }) {
   // })
   const routes = [
     {
-      //     path: '/dashboard',
-      //     models: () => [import('./models/dashboard')],
-      //     component: () => import('./routes/dashboard/'),
-      //   }, {
+      path: '/dashboard',
+      models: () => [import('./models/dashboard')],
+      component: () => import('./routes/dashboard/'),
+    }, {
       //     path: '/user',
       //     models: () => [import('./models/user')],
       //     component: () => import('./routes/user/'),
@@ -28,7 +28,7 @@ const Routers = function ({ history, app }) {
       path: '/login',
       models: () => [import('./models/login')],
       component: () => import('./routes/login/'),
-    }//, {
+    }, // {
     //     path: '/request',
     //     component: () => import('./routes/request/'),
     //   }, {
