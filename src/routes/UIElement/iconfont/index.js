@@ -1,6 +1,6 @@
 import React from 'react'
 import { Iconfont, Page } from 'components'
-import { Table, Row, Col, Icon } from 'antd'
+import { Grid, Icon } from 'antd-mobile'
 import styles from './index.less'
 import './emoji'
 
@@ -55,7 +55,7 @@ const IcoPage = () => (<Page inner>
     </li>))}
   </ul>
   <h2 style={{ margin: '16px 0' }}>API</h2>
-  <Row>
+  {/* <Row>
     <Col lg={18} md={24}>
       <Table
         rowKey={(record, key) => key}
@@ -95,7 +95,7 @@ const IcoPage = () => (<Page inner>
           }]}
       />
     </Col>
-  </Row>
+  </Row> */}
   <h2 style={{ margin: '16px 0' }}>Thanks</h2>
   <div style={{ margin: '16px 0', lineHeight: 2 }}>
     <p>

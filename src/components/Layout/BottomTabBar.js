@@ -1,13 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { TabBar, Icon } from 'antd-mobile'
-import { arrayToTree, queryArray } from 'utils'
+import { TabBar } from 'antd-mobile'
+import { arrayToTree } from 'utils'
 import pathToRegexp from 'path-to-regexp'
-import { routerRedux } from 'dva/router'
 
-const BottomTabBar = ({ siderFold, menu, location, children }) => {
+
+const BottomTabBar = ({ siderFold, menu, location, children, changeLocation }) => {
   // 生成树状
   const menuTree = arrayToTree(menu.filter(_ => _.mpid !== '-1'), 'id', 'mpid')
+
 
   // 递归生成菜单
   const getMenus = (menuTreeN, siderFoldN, selectMenu) => {
@@ -15,15 +16,17 @@ const BottomTabBar = ({ siderFold, menu, location, children }) => {
       return (
         <TabBar.Item key={item.id}
           title={item.name}
-          selected={item.route === selectMenu.route}
+          selected={
+            item.route === selectMenu.route
+          }
           icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
           selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
-          onPress={() => {
-            routerRedux.push(item.route);
-          }
+          onPress={() => changeLocation(item.route)
           }
         >
-          {location.pathname === item.route ? children : null}
+          {
+            location.pathname === item.route ? children : null
+          }
         </TabBar.Item>
       )
     })
@@ -60,6 +63,7 @@ BottomTabBar.propTypes = {
   siderFold: PropTypes.bool,
   location: PropTypes.object,
   children: PropTypes.element,
+  changeLocation: PropTypes.func,
 }
 
 export default BottomTabBar

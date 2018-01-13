@@ -7,10 +7,10 @@ import App from 'routes/app'
 const { ConnectedRouter } = routerRedux
 
 const Routers = function ({ history, app }) {
-  // const error = dynamic({
-  //   app,
-  //   component: () => import('./routes/error'),
-  // })
+  const error = dynamic({
+    app,
+    component: () => import('./routes/error'),
+  })
   const routes = [
     {
       path: '/dashboard',
@@ -28,13 +28,13 @@ const Routers = function ({ history, app }) {
       path: '/login',
       models: () => [import('./models/login')],
       component: () => import('./routes/login/'),
+    }, {
+      //     path: '/request',
+      //     component: () => import('./routes/request/'),
+      // }, {
+      path: '/UIElement/iconfont',
+      component: () => import('./routes/UIElement/iconfont/'),
     }, // {
-    //     path: '/request',
-    //     component: () => import('./routes/request/'),
-    //   }, {
-    //     path: '/UIElement/iconfont',
-    //     component: () => import('./routes/UIElement/iconfont/'),
-    //   }, {
     //     path: '/UIElement/search',
     //     component: () => import('./routes/UIElement/search/'),
     //   }, {
@@ -82,7 +82,7 @@ const Routers = function ({ history, app }) {
               />
             ))
           }
-          {/* <Route component={error} /> */}
+          <Route component={error} />
         </Switch>
       </App>
     </ConnectedRouter>

@@ -9,7 +9,7 @@ import { MyLayout, Loader } from 'components'
 // import { Flex } from 'antd-mobile'
 import { classnames, config } from 'utils'
 import { Helmet } from 'react-helmet'
-import { withRouter } from 'dva/router'
+import { withRouter, routerRedux } from 'dva/router'
 // import Error from './error'
 import '../themes/index.less'
 import './app.less'
@@ -67,6 +67,11 @@ const App = ({
     menu,
     location,
     children,
+    changeLocation(name) {
+      dispatch(routerRedux.push({
+        pathname: name,
+      }))
+    },
   }
   if (openPages && openPages.includes(pathname)) {
     return (<div>

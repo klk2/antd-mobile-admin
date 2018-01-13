@@ -7,7 +7,7 @@ export default {
   state: {},
 
   effects: {
-    * login ({
+    * login({
       payload,
     }, { put, call, select }) {
       const data = yield call(login, payload)

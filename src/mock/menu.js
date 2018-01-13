@@ -18,9 +18,9 @@ let database = [
   {
     id: '7',
     bpid: '1',
-    name: 'Posts',
-    icon: 'shopping-cart',
-    route: '/post',
+    name: 'IconFont',
+    icon: 'heart-o',
+    route: '/UIElement/iconfont',
   },
   {
     id: '21',
@@ -41,14 +41,6 @@ let database = [
     bpid: '1',
     name: 'UI Element',
     icon: 'camera-o',
-  },
-  {
-    id: '41',
-    bpid: '4',
-    mpid: '4',
-    name: 'IconFont',
-    icon: 'heart-o',
-    route: '/UIElement/iconfont',
   },
   // {
   //   id: '42',
@@ -95,6 +87,7 @@ let database = [
     bpid: '1',
     name: 'Charts',
     icon: 'code-o',
+    route: '/chart',
   },
   {
     id: '51',
@@ -158,7 +151,7 @@ let database = [
 
 module.exports = {
 
-  [`GET ${apiPrefix}/menus`] (req, res) {
+  [`GET ${apiPrefix}/menus`](req, res) {
     res.status(200).json(database)
   },
 }
