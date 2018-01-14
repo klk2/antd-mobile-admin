@@ -28,64 +28,43 @@ function Dashboard({ dashboard, loading }) {
       <div>
         {numberCards}
       </div>
-      {/* <Card bordered={false}
-        bodyStyle={{
-          padding: '24px 36px 24px 0',
-        }}
+      <Card style={{
+        padding: '24px 36px 24px 0',
+      }}
       >
         <Sales data={sales} />
-      </Card> */}
-      <WhiteSpace size="sm" />
-      {/* <Card bordered={false}
-        className={styles.weather}
-        bodyStyle={{
+      </Card>
+      <WhiteSpace size="lg" />
+      <Card className={styles.weather}
+        style={{
           padding: 0,
           height: 204,
           background: color.blue,
         }}
       >
         <Weather {...weather} loading={loading.effects['dashboard/queryWeather']} />
-      </Card> */}
-      {/* <Card bordered={false}
-        className={styles.quote}
-        bodyStyle={{
-          padding: 0,
-          height: 204,
-          background: color.peach,
-        }}
-      >
-        <Quote {...quote} />
-      </Card> */}
-
-      {/* <Card bordered={false} {...bodyStyle}>
-        <RecentSales data={recentSales} />
       </Card>
-
-      <Card bordered={false} {...bodyStyle}>
-        <Comments data={comments} />
-      </Card> */}
-
-
-      {/* <Card bordered={false}
-        bodyStyle={{
-          padding: '24px 36px 24px 0',
-        }}
+      <WhiteSpace size="lg" />
+      <Card className={styles.quote}  >
+        <Quote {...quote}
+          style={{
+            padding: 0,
+            height: 204,
+            background: color.peach,
+          }}
+        />
+      </Card>
+      <WhiteSpace size="lg" />
+      <Card style={{
+        padding: '24px 36px 24px 0',
+      }}
       >
         <Completed data={completed} />
-      </Card> */}
-
-
-      {/* <Card bordered={false} {...bodyStyle}>
-        <Browser data={browser} />
-      </Card> */}
-
-      {/* <Card bordered={false} {...bodyStyle}>
+      </Card>
+      <WhiteSpace size="lg" />
+      <Card>
         <Cpu {...cpu} />
-      </Card> */}
-
-      {/* <Card bordered={false} bodyStyle={{ ...bodyStyle.bodyStyle, padding: 0 }}>
-        <User {...user} />
-      </Card> */}
+      </Card>
     </Page>
   )
 }
