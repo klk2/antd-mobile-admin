@@ -1,14 +1,11 @@
 import React from 'react'
 import { Iconfont, Page } from 'components'
-import { Grid, Icon } from 'antd-mobile'
 import styles from './index.less'
 import './emoji'
 
-const colorfulIcons = ['boluo', 'baixiangguo', 'chengzi', 'boluomei', 'caomei', 'dayouzi', 'chelizi', 'fanqie', 'hamigua', 'ganlan',
-  'juzi', 'heimei', 'huolongguo', 'hongmei', 'lizi', 'lanmei', 'mangguo', 'mihoutao', 'longyan', 'mugua', 'lizi1', 'ningmeng']
 
-const flatIcons = ['home', 'user', 'timelimit', 'shopcart', 'message', 'remind', 'service', 'shop', 'sweep', 'express',
-  'payment', 'search', 'feedback', 'pencil', 'setting', 'refund', 'delete', 'star', 'heart', 'share', 'location', 'console']
+const flatIcons = ['home', 'user', 'linechart', 'shoppingcart', 'message1', 'tool', 'customerservice', 'save', 'totop', 'team',
+  'pay-circle1', 'search1', 'file1', 'addfile', 'setting', 'picture', 'delete', 'star', 'heart', 'sharealt']
 
 const localSVGIcons = ['vomiting', 'smirking', 'surprised', 'unamused', 'zombie', 'tired', 'tongue', 'wink']
 
@@ -25,14 +22,6 @@ const localRequireSVGIcons = [
 ]
 
 const IcoPage = () => (<Page inner>
-  <Icon type="star-oo" />
-  <h2 style={{ margin: '16px 0' }}>Colorful Icon</h2>
-  <ul className={styles.list}>
-    {colorfulIcons.map(item => (<li key={item}>
-      <Iconfont className={styles.icon} colorful type={item} />
-      <span className={styles.name}>{item}</span>
-    </li>))}
-  </ul>
   <h2 style={{ margin: '16px 0' }}>Flat Icon</h2>
   <ul className={styles.list}>
     {flatIcons.map(item => (<li key={item}>
@@ -55,47 +44,6 @@ const IcoPage = () => (<Page inner>
     </li>))}
   </ul>
   <h2 style={{ margin: '16px 0' }}>API</h2>
-  {/* <Row>
-    <Col lg={18} md={24}>
-      <Table
-        rowKey={(record, key) => key}
-        pagination={false}
-        bordered
-        scroll={{ x: 800 }}
-        columns={[
-          {
-            title: 'Property',
-            dataIndex: 'props',
-          },
-          {
-            title: 'Description',
-            dataIndex: 'desciption',
-          },
-          {
-            title: 'Type',
-            dataIndex: 'type',
-          },
-          {
-            title: 'Default',
-            dataIndex: 'default',
-          },
-        ]}
-        dataSource={[
-          {
-            props: 'type',
-            desciption: 'icon type',
-            type: 'String',
-            default: '-',
-          },
-          {
-            props: 'colorful',
-            desciption: "to set the SVG has 'symbol element'",
-            type: 'Bool',
-            default: 'false',
-          }]}
-      />
-    </Col>
-  </Row> */}
   <h2 style={{ margin: '16px 0' }}>Thanks</h2>
   <div style={{ margin: '16px 0', lineHeight: 2 }}>
     <p>

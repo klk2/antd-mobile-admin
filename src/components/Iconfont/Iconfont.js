@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import './iconfont.less'
 
-const Iconfont = ({ type, colorful = false, className }) => {
+const Iconfont = ({
+  type, colorful = false, className, style,
+}) => {
   if (colorful) {
     return (
       <svg className={classnames('colorful-icon', className)} aria-hidden="true">
@@ -12,13 +14,14 @@ const Iconfont = ({ type, colorful = false, className }) => {
     )
   }
 
-  return <i className={classnames('antdadmin', [`icon-${type}`], className)} />
+  return <i className={classnames('antdadmin', [`icon-${type}`], className)} style={style} />
 }
 
 Iconfont.propTypes = {
   type: PropTypes.string.isRequired,
   colorful: PropTypes.bool,
   className: PropTypes.string,
+  style: PropTypes.object,
 }
 
 export default Iconfont

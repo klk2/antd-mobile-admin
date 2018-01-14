@@ -86,7 +86,7 @@ let database = [
     id: '5',
     bpid: '1',
     name: 'Charts',
-    icon: 'code-o',
+    icon: 'barschart',
     route: '/chart',
   },
   {

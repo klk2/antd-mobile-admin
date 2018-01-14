@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'dva'
 import { Card, WhiteSpace, Icon } from 'antd-mobile'
 import { color } from 'utils'
-import { Page } from 'components'
+import { Page, Iconfont } from 'components'
 import { NumberCard, Quote, Sales, Weather, Completed, Cpu } from './components'
 
 import styles from './index.less'
@@ -28,7 +28,6 @@ function Dashboard({ dashboard, loading }) {
       <div>
         {numberCards}
       </div>
-      <Icon type="home" />
       {/* <Card bordered={false}
         bodyStyle={{
           padding: '24px 36px 24px 0',

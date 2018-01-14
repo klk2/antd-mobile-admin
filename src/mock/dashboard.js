@@ -102,7 +102,7 @@ const Dashboard = Mock.mock({
   },
   numbers: [
     {
-      icon: 'pay-circle-o',
+      icon: 'pay-circle-o1',
       color: color.green,
       title: 'Online Review',
       number: 2781,
