@@ -27,7 +27,7 @@ const requestOptions = [
     url: userLogin,
     method: 'post',
     data: {
-      username: 'guest',
+      loginName: 'guest',
       password: 'guest',
     },
     desc: 'intercept request by mock.js',

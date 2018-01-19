@@ -18,8 +18,9 @@ class Login extends React.Component {
     event.preventDefault();
     const { dispatch } = this.props;
     let formV = {
-      username: this.state.namevalue,
+      loginName: this.state.namevalue,
       password: this.state.pwdvalue,
+      loginType: 5,
     }
     dispatch({ type: 'login/login', payload: formV })
   }
@@ -61,45 +62,6 @@ class Login extends React.Component {
       </div>
     )
   }
-}
-const Logi2 = ({
-  loading,
-  dispatch,
-}) => {
-  let userNameInput
-  let pwdInput
-  function handleOk() {
-    let formV = {
-      username: userNameInput.value,
-      password: pwdInput.value,
-    }
-    dispatch({ type: 'login/login', payload: formV })
-  }
-
-  return (
-    <div className={styles.form}>
-      <div className={styles.logo}>
-        <img alt="logo" src={config.logo} />
-        <span>{config.name}</span>
-      </div>
-      <List>
-        <InputItem ref={el => userNameInput = el} value="22" placeholder="Username" clear>Name</InputItem>
-
-        <InputItem ref={el => pwdInput = el} type="password" placeholder="Password" clear>Password</InputItem>
-      </List>
-      <div>
-        <Button type="primary" onClick={handleOk} loading={loading.effects.login}>
-          Sign in
-        </Button>
-        <p>
-          <span>Username：guest</span>
-          <span>Password：guest</span>
-        </p>
-      </div>
-
-
-    </div>
-  )
 }
 
 Login.propTypes = {

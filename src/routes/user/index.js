@@ -2,13 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { routerRedux } from 'dva/router'
 import { connect } from 'dva'
-import { Row, Col, Button, Popconfirm } from 'antd'
+// import { List } from 'antd-mobile';
 import { Page } from 'components'
 import queryString from 'query-string'
 import List from './List'
-import Filter from './Filter'
-import Modal from './Modal'
-
+// import Filter from './Filter'
+// import Modal from './Modal'
+// const Item = List.Item;
+// const Brief = Item.Brief;
 
 const User = ({
   location, dispatch, user, loading,
@@ -27,13 +28,13 @@ const User = ({
     confirmLoading: loading.effects['user/update'],
     title: `${modalType === 'create' ? 'Create User' : 'Update User'}`,
     wrapClassName: 'vertical-center-modal',
-    onOk (data) {
+    onOk(data) {
       dispatch({
         type: `user/${modalType}`,
         payload: data,
       })
     },
-    onCancel () {
+    onCancel() {
       dispatch({
         type: 'user/hideModal',
       })
@@ -42,27 +43,30 @@ const User = ({
 
   const listProps = {
     dataSource: list,
-    loading: loading.effects['user/query'],
+    loading: false,
     pagination,
     location,
     isMotion,
-    onChange (page) {
+    onEndReached(event) {
+      if (pagination.pageSize * pagination.current >= pagination.total) {
+        return;
+      }
       dispatch(routerRedux.push({
         pathname,
         search: queryString.stringify({
           ...query,
-          page: page.current,
-          pageSize: page.pageSize,
+          page: pagination.current + 1,
+          pageSize: pagination.pageSize,
         }),
       }))
     },
-    onDeleteItem (id) {
+    onDeleteItem(id) {
       dispatch({
         type: 'user/delete',
         payload: id,
       })
     },
-    onEditItem (item) {
+    onEditItem(item) {
       dispatch({
         type: 'user/showModal',
         payload: {
@@ -89,7 +93,7 @@ const User = ({
     filter: {
       ...query,
     },
-    onFilterChange (value) {
+    onFilterChange(value) {
       dispatch(routerRedux.push({
         pathname: location.pathname,
         search: queryString.stringify({
@@ -99,7 +103,7 @@ const User = ({
         }),
       }))
     },
-    onSearch (fieldsValue) {
+    onSearch(fieldsValue) {
       fieldsValue.keyword.length ? dispatch(routerRedux.push({
         pathname: '/user',
         query: {
@@ -110,7 +114,7 @@ const User = ({
         pathname: '/user',
       }))
     },
-    onAdd () {
+    onAdd() {
       dispatch({
         type: 'user/showModal',
         payload: {
@@ -118,7 +122,7 @@ const User = ({
         },
       })
     },
-    switchIsMotion () {
+    switchIsMotion() {
       dispatch({ type: 'user/switchIsMotion' })
     },
   }
@@ -133,8 +137,14 @@ const User = ({
   }
 
   return (
-    <Page inner>
-      <Filter {...filterProps} />
+    <Page>
+      {/* <List renderHeader={() => 'Align Vertical Center'} className="my-list">
+        <Item multipleLine extra="extra content">
+          Title <Brief>subtitle</Brief>
+        </Item>
+      </List> */}
+      <List  {...listProps} />
+      {/* <Filter {...filterProps} />
       {
         selectedRowKeys.length > 0 &&
         <Row style={{ marginBottom: 24, textAlign: 'right', fontSize: 13 }}>
@@ -147,7 +157,7 @@ const User = ({
         </Row>
       }
       <List {...listProps} />
-      {modalVisible && <Modal {...modalProps} />}
+      {modalVisible && <Modal {...modalProps} />} */}
     </Page>
   )
 }

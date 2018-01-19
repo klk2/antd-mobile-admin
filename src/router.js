@@ -11,16 +11,17 @@ const Routers = function ({ history, app }) {
     app,
     component: () => import('./routes/error'),
   })
+
   const routes = [
     {
       path: '/dashboard',
       models: () => [import('./models/dashboard')],
       component: () => import('./routes/dashboard/'),
     }, {
-      //     path: '/user',
-      //     models: () => [import('./models/user')],
-      //     component: () => import('./routes/user/'),
-      //   }, {
+      path: '/user',
+      models: () => [import('./models/user')],
+      component: () => import('./routes/user/'),
+    }, {
       //     path: '/user/:id',
       //     models: () => [import('./models/user/detail')],
       //     component: () => import('./routes/user/detail/'),
@@ -68,22 +69,25 @@ const Routers = function ({ history, app }) {
   return (
     <ConnectedRouter history={history}>
       <App>
-        <Switch>
-          <Route exact path="/" render={() => (<Redirect to="/dashboard" />)} />
-          {
-            routes.map(({ path, ...dynamics }, key) => (
-              <Route key={key}
-                exact
-                path={path}
-                component={dynamic({
-                  app,
-                  ...dynamics,
-                })}
-              />
-            ))
-          }
-          <Route component={error} />
-        </Switch>
+        <div>
+          <Switch>
+            <Route exact path="/" render={() => (<Redirect to="/dashboard" />)} />
+            {
+              routes.map(({ path, ...dynamics }, key) => (
+                <Route key={key}
+                  exact
+                  path={path}
+                  component={dynamic({
+                    app,
+                    ...dynamics,
+                  })}
+                />
+              ))
+            }
+            <Route component={error} />
+          </Switch>
+          {false ? <Route path="/img/:id" component={error} /> : null}
+        </div>
       </App>
     </ConnectedRouter>
   )

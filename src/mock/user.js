@@ -16,7 +16,7 @@ let usersListData = Mock.mock({
       isMale: '@boolean',
       email: '@email',
       createTime: '@datetime',
-      avatar () {
+      avatar() {
         return Mock.Random.image('100x100', Mock.Random.color(), '#757575', 'png', this.nickName.substr(0, 1))
       },
     },
@@ -48,17 +48,17 @@ const userPermission = {
 const adminUsers = [
   {
     id: 0,
-    username: 'admin',
+    loginName: 'admin',
     password: 'admin',
     permissions: userPermission.ADMIN,
   }, {
     id: 1,
-    username: 'guest',
+    loginName: 'guest',
     password: 'guest',
     permissions: userPermission.DEFAULT,
   }, {
     id: 2,
-    username: '吴彦祖',
+    loginName: '吴彦祖',
     password: '123456',
     permissions: userPermission.DEVELOPER,
   },
@@ -89,10 +89,43 @@ const NOTFOUND = {
 }
 
 module.exports = {
+  [`POST /uvrms/session/gen.action`](req, res) {
+    const now = new Date()
+    now.setDate(now.getDate() + 1)
+    res.json({
+      code: 1,
+      data: {
+        timestamp: Date.parse(now) / 1000,
+        sessionKey: '123456',
+        sessionSecret: '2222222',
+      },
+    })
+  },
+  [`POST /uvrms/login/doLogin.action`](req, res) {
+    const { loginName, password } = req.body
+    const user = adminUsers.filter(item => item.loginName === loginName)
 
-  [`POST ${apiPrefix}/user/login`] (req, res) {
-    const { username, password } = req.body
-    const user = adminUsers.filter(item => item.username === username)
+    if (user.length > 0 && user[0].password === password) {
+      const now = new Date()
+      now.setDate(now.getDate() + 1)
+      res.cookie('token', JSON.stringify({ id: user[0].id, deadline: now.getTime() }), {
+        maxAge: 900000,
+        httpOnly: true,
+      })
+      res.json({
+        success: true,
+        message: 'Ok',
+        data: {
+          accessToken: '098765',
+        },
+      })
+    } else {
+      res.status(400).end()
+    }
+  },
+  [`POST ${apiPrefix}/user/login`](req, res) {
+    const { loginName, password } = req.body
+    const user = adminUsers.filter(item => item.loginName === loginName)
 
     if (user.length > 0 && user[0].password === password) {
       const now = new Date()
@@ -107,12 +140,12 @@ module.exports = {
     }
   },
 
-  [`GET ${apiPrefix}/user/logout`] (req, res) {
+  [`GET ${apiPrefix}/user/logout`](req, res) {
     res.clearCookie('token')
     res.status(200).end()
   },
 
-  [`GET ${apiPrefix}/user`] (req, res) {
+  [`GET ${apiPrefix}/user`](req, res) {
     const cookie = req.headers.cookie || ''
     const cookies = qs.parse(cookie.replace(/\s/g, ''), { delimiter: ';' })
     const response = {}
@@ -129,7 +162,7 @@ module.exports = {
       const userItem = adminUsers.filter(_ => _.id === token.id)
       if (userItem.length > 0) {
         user.permissions = userItem[0].permissions
-        user.username = userItem[0].username
+        user.loginName = userItem[0].loginName
         user.id = userItem[0].id
       }
     }
@@ -137,7 +170,7 @@ module.exports = {
     res.json(response)
   },
 
-  [`GET ${apiPrefix}/users`] (req, res) {
+  [`GET ${apiPrefix}/users`](req, res) {
     const { query } = req
     let { pageSize, page, ...other } = query
     pageSize = pageSize || 10
@@ -173,14 +206,14 @@ module.exports = {
     })
   },
 
-  [`DELETE ${apiPrefix}/users`] (req, res) {
+  [`DELETE ${apiPrefix}/users`](req, res) {
     const { ids } = req.body
     database = database.filter(item => !ids.some(_ => _ === item.id))
     res.status(204).end()
   },
 
 
-  [`POST ${apiPrefix}/user`] (req, res) {
+  [`POST ${apiPrefix}/user`](req, res) {
     const newData = req.body
     newData.createTime = Mock.mock('@now')
     newData.avatar = newData.avatar || Mock.Random.image('100x100', Mock.Random.color(), '#757575', 'png', newData.nickName.substr(0, 1))
@@ -191,7 +224,7 @@ module.exports = {
     res.status(200).end()
   },
 
-  [`GET ${apiPrefix}/user/:id`] (req, res) {
+  [`GET ${apiPrefix}/user/:id`](req, res) {
     const { id } = req.params
     const data = queryArray(database, id, 'id')
     if (data) {
@@ -201,7 +234,7 @@ module.exports = {
     }
   },
 
-  [`DELETE ${apiPrefix}/user/:id`] (req, res) {
+  [`DELETE ${apiPrefix}/user/:id`](req, res) {
     const { id } = req.params
     const data = queryArray(database, id, 'id')
     if (data) {
@@ -212,7 +245,7 @@ module.exports = {
     }
   },
 
-  [`PATCH ${apiPrefix}/user/:id`] (req, res) {
+  [`PATCH ${apiPrefix}/user/:id`](req, res) {
     const { id } = req.params
     const editItem = req.body
     let isExist = false

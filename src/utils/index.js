@@ -3,6 +3,7 @@ import classnames from 'classnames'
 import lodash from 'lodash'
 import config from './config'
 import request from './request'
+import signUtil from './signUtil'
 import { color } from './theme'
 
 // 连字符转驼峰
@@ -107,4 +108,5 @@ module.exports = {
   queryURL,
   queryArray,
   arrayToTree,
+  signUtil,
 }
