@@ -21,7 +21,7 @@ const { prefix, openPages } = config
 let lastHref
 
 const App = ({
-  children, dispatch, app, loading, location,
+  children, tabContents, dispatch, app, loading, location,
 }) => {
   const {
     user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys, menu, permissions,
@@ -65,6 +65,7 @@ const App = ({
   const tabbarProps = {
     siderFold,
     menu,
+    tabContents,
     location,
     children,
     changeLocation(name) {
@@ -117,6 +118,7 @@ const App = ({
 
 App.propTypes = {
   children: PropTypes.element.isRequired,
+  tabContents: PropTypes.array,
   location: PropTypes.object,
   dispatch: PropTypes.func,
   app: PropTypes.object,

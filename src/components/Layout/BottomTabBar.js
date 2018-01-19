@@ -6,8 +6,10 @@ import pathToRegexp from 'path-to-regexp'
 import { Iconfont } from 'components'
 import styles from './BottomTabBar.less'
 
+let tabCaches = [];
+
 const BottomTabBar = ({
-  siderFold, menu, location, children, changeLocation,
+  siderFold, menu, tabContents, location, children, changeLocation,
 }) => {
   // 生成树状
   const menuTree = arrayToTree(menu.filter(_ => _.mpid !== '-1'), 'id', 'mpid')
@@ -17,10 +19,16 @@ const BottomTabBar = ({
   // 递归生成菜单
   const getMenus = (menuTreeN, siderFoldN, selectMenu) => {
     const getBarContent = (item) => {
-      if (pathname === '/') {
-        return children;
-      } else if (pathname.startsWith(item.route)) {
-        return children;
+      const itemc = tabCaches.find(o => o.name === item.route);
+      if (itemc && itemc.cache) {
+        return itemc.cache;
+      } else if (pathname === '/' || pathname.startsWith(item.route)) {
+        const el = tabContents.find(o => o.path === item.route);
+        if (el && el.dycomponent) {
+          const selectV = <el.dycomponent location={location} />;
+          tabCaches.push({ name: item.route, cache: selectV });
+          return selectV;
+        }
       }
       return null;
     };
@@ -74,6 +82,7 @@ const BottomTabBar = ({
 
 BottomTabBar.propTypes = {
   menu: PropTypes.array,
+  tabContents: PropTypes.array,
   siderFold: PropTypes.bool,
   location: PropTypes.object,
   children: PropTypes.element,
